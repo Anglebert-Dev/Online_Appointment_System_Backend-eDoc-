@@ -1,8 +1,11 @@
-import { Controller, Get, Post, Body, Param, Delete, Put } from '@nestjs/common';
+import { Controller, Get, Post, Body, Param, Delete, Put, UseGuards, Roles } from '@nestjs/common';
 import { UserService } from './user.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { ApiTags } from '@nestjs/swagger';
+import { RolesGuard } from 'src/jwt-auth-guard/role.guard';
+
+import { Role } from '../jwt-auth-guard/role.enum';
 
 @ApiTags("users")
 @Controller('user')
@@ -15,6 +18,8 @@ export class UserController {
   }
 
   @Get()
+  @UseGuards(RolesGuard)
+  @Roles(Role.Admin)
   findAll() {
     return this.userService.findAll();
   }
@@ -34,3 +39,4 @@ export class UserController {
     return this.userService.remove(id);
   }
 }
+

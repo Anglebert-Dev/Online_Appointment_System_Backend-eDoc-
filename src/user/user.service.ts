@@ -3,6 +3,7 @@ import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { PrismaService } from 'src/prisma/prisma.service';
 import * as bcrypt from 'bcrypt';
+import { Role } from 'src/jwt-auth-guard/role.enum';
 
 @Injectable()
 export class UserService {
@@ -30,6 +31,7 @@ export class UserService {
         username: createUserDto.username,
         email: createUserDto.email,
         phone: createUserDto.phone,
+        role: createUserDto.role || Role.Patient,
         password: hashedPassword, 
       },
     });

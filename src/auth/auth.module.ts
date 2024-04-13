@@ -7,6 +7,8 @@ import { JwtStrategy } from './jwt.strategy';
 import { PrismaService } from '../prisma/prisma.service';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { AuthController } from './auth.controller';
+import { APP_GUARD } from '@nestjs/core';
+import { RolesGuard } from 'src/jwt-auth-guard/role.guard';
 
 @Module({
   imports: [
@@ -20,7 +22,7 @@ import { AuthController } from './auth.controller';
       inject: [ConfigService],
     }),
   ],
-  providers: [AuthService, JwtStrategy, PrismaService],
+  providers: [AuthService, JwtStrategy, PrismaService , {provide:APP_GUARD , useClass:RolesGuard}],
   exports: [AuthService],
   controllers: [AuthController],
 })

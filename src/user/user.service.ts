@@ -1,4 +1,8 @@
-import { ConflictException, Injectable, NotFoundException } from '@nestjs/common';
+import {
+  ConflictException,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { PrismaService } from 'src/prisma/prisma.service';
@@ -9,17 +13,17 @@ import { Role } from 'src/jwt-auth-guard/role.enum';
 export class UserService {
   constructor(private readonly prisma: PrismaService) {}
 
-  async findOneByUsername(username: string) {
+  async findOneByEmail(email: string) {
     return this.prisma.user.findUnique({
-      where: { username },
+      where: { email },
     });
   }
 
   async create(createUserDto: CreateUserDto) {
-    // Check if username exists
-    const existingUser = await this.findOneByUsername(createUserDto.username);
+    // Check if email exists
+    const existingUser = await this.findOneByEmail(createUserDto.email);
     if (existingUser) {
-      throw new ConflictException('Username is already taken');
+      throw new ConflictException('Email is already taken');
     }
 
     // Hash the password
@@ -32,7 +36,7 @@ export class UserService {
         email: createUserDto.email,
         phone: createUserDto.phone,
         role: createUserDto.role || Role.Patient,
-        password: hashedPassword, 
+        password: hashedPassword,
       },
     });
   }

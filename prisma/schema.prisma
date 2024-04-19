@@ -13,47 +13,58 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model User {
-  id        String   @id @default(uuid())
-  username  String
-  email     String   @unique
-  phone     String
-  password  String
-  role      String   @default("patient")
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+// schema.prisma
+model Doctor {
+  id          String    @id @unique @default(uuid())
+  username    String
+  email       String    @unique
+  phone       String
+  specialties String[]
+  password    String
+  role        String    @default("DOCTOR")
+  sessions    Session[]
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
 }
 
-model Doctor {
-  id          String   @id @default(uuid())
-  username    String
-  email       String   @unique
-  phone       String
-  specialties String
-  password    String
-  role        String   @default("doctor")
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+model Patient {
+  id           String        @id @unique @default(uuid())
+  username     String
+  role         String        @default("PATIENT")
+  email        String        @unique
+  phone        String
+  password     String
+  appointments Appointment[]
+  createdAt    DateTime      @default(now())
+  updatedAt    DateTime      @updatedAt
+  Session      Session?      @relation(fields: [sessionId], references: [id])
+  sessionId    String?
 }
 
 model Session {
-  id            String   @id @unique @default(uuid())
-  title         String
-  doctor        String
-  patients      String
-  date          String
-  schedule_time String
-  createdAt     DateTime @default(now())
-  updatedAt     DateTime @updatedAt
+  id          String    @id @unique @default(uuid())
+  title       String
+  doctorId    String
+  patients    Patient[]
+  date        DateTime
+  startTime   String
+  endTime     String
+  maxPatients Int
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+  doctor      Doctor    @relation(fields: [doctorId], references: [id])
 }
 
 model Appointment {
-  id                 String   @id @unique @default(uuid())
-  patient_id         String
-  appointment_number String
-  schedule_id        String
-  appointment_date   String
-  schedule_time      String
-  createdAt          DateTime @default(now())
-  updatedAt          DateTime @updatedAt
+  id                String   @id @unique @default(uuid())
+  patientId         String
+  appointmentNumber String
+  sessionId         String
+  date              DateTime
+  startTime         String
+  endTime           String
+  status            String
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
+  patient           Patient? @relation(fields: [patientId], references: [id])
 }

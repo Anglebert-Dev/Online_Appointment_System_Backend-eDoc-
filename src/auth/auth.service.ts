@@ -3,6 +3,7 @@ import { PrismaService } from 'src/prisma/prisma.service';
 import { JwtService } from '@nestjs/jwt';
 
 import * as bcrypt from 'bcrypt';
+import { Doctor, Patient } from '@prisma/client';
 
 @Injectable()
 export class AuthService {
@@ -11,14 +12,14 @@ export class AuthService {
     private readonly jwtService: JwtService,
   ) {}
 
-  async validateUser(email, password) {
-    let user = await this.prisma.user.findUnique({
+  async validateUser(email: string, password: string): Promise<Patient | Doctor> {
+    let user: Patient | Doctor | null = await this.prisma.patient.findUnique({
       where: { email },
     });
 
     if (!user) {
       user = await this.prisma.doctor.findUnique({
-        where: { email},
+        where: { email },
       });
     }
 
@@ -31,8 +32,14 @@ export class AuthService {
       throw new NotFoundException('Wrong Credentials!');
     }
 
-    const { password: _, ...userData } = user;
-    return userData;
+    // Remove 'sessionId' from the returned user object if it's a doctor
+    if ('sessionId' in user) {
+      const { sessionId, ...userData } = user;
+      return { ...userData, specialties: [] };
+    }
+
+    // If user is a patient, return as is
+    return user;
   }
 
   async login(user: any): Promise<{ access_token: string }> {

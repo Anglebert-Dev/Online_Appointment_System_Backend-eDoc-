@@ -1,5 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsEmail, IsNotEmpty } from 'class-validator';
+import { IsArray, IsEmail, IsNotEmpty } from 'class-validator';
 
 export class CreateDoctorDto {
   @ApiProperty()
@@ -17,7 +17,8 @@ export class CreateDoctorDto {
 
   @ApiProperty()
   @IsNotEmpty()
-  specialties: string;
+  @IsArray()
+  specialties: string[];
 
   role?: string;
 

@@ -1,21 +1,21 @@
 import { Controller, Get, Post, Body, Param, Delete, Put, UseGuards } from '@nestjs/common';
-import { UserService } from './user.service';
-import { CreateUserDto } from './dto/create-user.dto';
-import { UpdateUserDto } from './dto/update-user.dto';
+import { PatientService } from './patient.service';
+import { CreatePatientDto } from './dto/create-patient.dto';
+import { UpdatePatientDto } from './dto/update-patient.dto';
 import { ApiTags } from '@nestjs/swagger';
 import { RolesGuard } from 'src/jwt-auth-guard/role.guard';
 
 import { Role } from '../jwt-auth-guard/role.enum';
 import { Roles } from 'src/jwt-auth-guard/roles.decorator';
 
-@ApiTags("users")
-@Controller('user')
-export class UserController {
-  constructor(private readonly userService: UserService) {}
+@ApiTags("patient")
+@Controller('patient')
+export class PatientController {
+  constructor(private readonly userService: PatientService) {}
 
   @Post('register')
-  create(@Body() createUserDto: CreateUserDto) {
-    return this.userService.create(createUserDto);
+  create(@Body() createPatientDto: CreatePatientDto) {
+    return this.userService.create(createPatientDto);
   }
 
   @Get()
@@ -31,8 +31,8 @@ export class UserController {
   }
 
   @Put(':id')
-  update(@Param('id') id: string, @Body() updateUserDto: UpdateUserDto) {
-    return this.userService.update(id, updateUserDto);
+  update(@Param('id') id: string, @Body() updatePatientDto: UpdatePatientDto) {
+    return this.userService.update(id, updatePatientDto);
   }
 
   // @UseGuards(RolesGuard)

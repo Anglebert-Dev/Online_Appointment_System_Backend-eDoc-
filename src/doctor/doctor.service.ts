@@ -8,6 +8,7 @@ import { UpdateDoctorDto } from './dto/update-doctor.dto';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { Role } from 'src/jwt-auth-guard/role.enum';
 import * as bcrypt from 'bcrypt';
+import { Doctor } from '@prisma/client';
 
 @Injectable()
 export class DoctorService {
@@ -34,16 +35,22 @@ export class DoctorService {
         username: createDoctorDto.username,
         email: createDoctorDto.email,
         phone: createDoctorDto.phone,
-        specialties: createDoctorDto.specialties,
+        specialties: createDoctorDto.specialties, 
         role: createDoctorDto.role || Role.Doctor,
         password: hashedPassword,
+
       },
     });
   }
 
-  async findAll() {
-    return this.prisma.doctor.findMany();
+  async findAll(): Promise<Doctor[]> {
+    return this.prisma.doctor.findMany({
+      include: {
+        sessions: true,
+      },
+    });
   }
+  
 
   async findOne(id: string) {
     const doctor = await this.prisma.doctor.findUnique({

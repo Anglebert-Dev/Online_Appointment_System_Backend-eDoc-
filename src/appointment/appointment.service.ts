@@ -18,29 +18,35 @@ export class AppointmentService {
     if (!session) {
       throw new Error('Session not found');
     }
-    // Extract date, startTime, and endTime from the session
     const { date, startTime, endTime } = session;
 
-    // Determine the appointment number based on the number of appointments already booked
+    if (session.patients.length >= session.maxPatients) {
+      throw new Error('Session is already fully booked');
+    }
     const appointmentNumber = (session.patients.length + 1).toString();
 
-    return this.prisma.appointment.create({
+   const appointment = await this.prisma.appointment.create({
       data: {
         patientId: createAppointmentDto.patientId,
         sessionId: createAppointmentDto.sessionId,
         appointmentNumber: appointmentNumber,
-        // Use the date, startTime, and endTime from the session
         date: session.date,
         startTime: session.startTime,
         endTime: session.endTime,
-        // Set the status from the DTO
         status: createAppointmentDto.status || Status.Pending,
       },
     });
+
+    const updatedSession = await this.prisma.session.update({
+      where: { id: createAppointmentDto.sessionId },
+      data: { patients: { connect: { id: createAppointmentDto.patientId } } },
+    });
+
+    return appointment
   }
 
   findAll() {
-    return `This action returns all appointment`;
+    return this.prisma.appointment.findMany();
   }
 
   findOne(id: number) {

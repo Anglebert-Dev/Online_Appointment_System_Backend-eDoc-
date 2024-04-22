@@ -12,14 +12,19 @@ export class SessionController {
   
   @Post()
   create(@Body() createSessionDto: CreateSessionDto) {
-    const isoDate = convertToISODate(new Date(createSessionDto.date));
-    return this.sessionService.create({ ...createSessionDto, date: isoDate });
+
+    return this.sessionService.create(createSessionDto);
   }
 
   @Get('available')
   findAll() {
     return this.sessionService.findAll();
   }
+
+  // @Get('available')
+  // findAll() {
+  //   return this.sessionService.findAllAvailableSessions();
+  // }
 
   @Get(':id')
   findOne(@Param('id') id: string) {
@@ -35,9 +40,4 @@ export class SessionController {
   remove(@Param('id') id: string) {
     return this.sessionService.remove(+id);
   }
-}
-
-
-function convertToISODate(date: Date): string {
-  return date.toISOString();
 }

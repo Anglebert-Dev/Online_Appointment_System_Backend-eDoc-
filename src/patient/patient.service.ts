@@ -42,7 +42,12 @@ export class PatientService {
   }
 
   async findAll() {
-    return this.prisma.patient.findMany();
+    return this.prisma.patient.findMany({
+      include: {
+        appointments: true,
+        Session:true
+      },
+    });
   }
 
   async findOne(id: string) {

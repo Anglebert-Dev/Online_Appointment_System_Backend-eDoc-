@@ -7,7 +7,7 @@ import { CreatePatientDto } from './dto/create-patient.dto';
 import { UpdatePatientDto } from './dto/update-patient.dto';
 import { PrismaService } from 'src/prisma/prisma.service';
 import * as bcrypt from 'bcrypt';
-import { Role } from 'src/jwt-auth-guard/role.enum';
+import { Role } from 'src/auth/jwt-auth-guard/role.enum';
 
 @Injectable()
 export class PatientService {

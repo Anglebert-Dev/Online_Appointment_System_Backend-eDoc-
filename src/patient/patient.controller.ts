@@ -3,10 +3,10 @@ import { PatientService } from './patient.service';
 import { CreatePatientDto } from './dto/create-patient.dto';
 import { UpdatePatientDto } from './dto/update-patient.dto';
 import { ApiTags } from '@nestjs/swagger';
-import { RolesGuard } from 'src/jwt-auth-guard/role.guard';
+import { RolesGuard } from 'src/auth/jwt-auth-guard/role.guard';
 
-import { Role } from '../jwt-auth-guard/role.enum';
-import { Roles } from 'src/jwt-auth-guard/roles.decorator';
+import { Role } from '../auth/jwt-auth-guard/role.enum';
+import { Roles } from 'src/auth/jwt-auth-guard/roles.decorator';
 
 @ApiTags("patient")
 @Controller('patient')

@@ -3,12 +3,12 @@
 import { Module } from '@nestjs/common';
 import { JwtModule } from '@nestjs/jwt';
 import { AuthService } from './auth.service';
-import { JwtStrategy } from './jwt.strategy';
+import { JwtStrategy } from './strategies/jwt.strategy';
 import { PrismaService } from '../prisma/prisma.service';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { AuthController } from './auth.controller';
 import { APP_GUARD } from '@nestjs/core';
-import { RolesGuard } from 'src/jwt-auth-guard/role.guard';
+import { RolesGuard } from 'src/auth/jwt-auth-guard/role.guard';
 
 @Module({
   imports: [

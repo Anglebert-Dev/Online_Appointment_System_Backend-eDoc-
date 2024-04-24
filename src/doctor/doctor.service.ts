@@ -6,7 +6,7 @@ import {
 import { CreateDoctorDto } from './dto/create-doctor.dto';
 import { UpdateDoctorDto } from './dto/update-doctor.dto';
 import { PrismaService } from 'src/prisma/prisma.service';
-import { Role } from 'src/jwt-auth-guard/role.enum';
+import { Role } from 'src/auth/jwt-auth-guard/role.enum';
 import * as bcrypt from 'bcrypt';
 import { Doctor } from '@prisma/client';
 

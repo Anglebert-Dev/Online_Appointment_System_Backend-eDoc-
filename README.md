@@ -1,79 +1,65 @@
-# recipes_management_system
-CRUD REST API with NestJS, Docker, Swagger, and Prisma
+# Online Appointment System Backend (eDoc)
+
+The eDoc project is a backend application developed using Nest.js and TypeScript. It facilitates online appointment requests for clients or patients of medical establishments, including clinics and hospitals. This system also assists doctors in managing their appointments with patients efficiently.
+
+## Key Features
+
+### Admin
+- **Manage Doctors**: Add, edit, and delete doctor profiles including specialties and credentials.
+- **Schedule Management**: Schedule and remove sessions for doctors.
+- **Patient Management**: View patient details and their appointment bookings.
+
+### Doctors
+- **Appointment Management**: View appointments booked by patients and manage their availability.
+- **Session Schedule**: View scheduled sessions for appointments.
+- **Account Management**: Edit account settings and delete accounts if necessary.
+
+### Patients (Clients)
+- **Online Appointment**: Make appointments online by selecting a doctor, date, and time.
+- **Account Creation**: Create accounts to manage appointments and personal details.
+- **Booking History**: View past appointment bookings.
+- **Account Management**: Edit account settings and delete accounts if needed.
+
+## Technologies Used
+
+- **Backend Framework**: Nest.js (Node.js framework)
+- **Database**: Prisma (ORM)
+- **Containerization**: Docker
+- **Programming Language**: TypeScript
+- **Authentication**: JWT (JSON Web Tokens), Google Auth
+- **Web Server**: Express.js (for Nest.js)
 
 
+## Getting Started
 
+To run this project locally, follow these steps:
 
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="200" alt="Nest Logo" /></a>
-</p>
-
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
-
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://coveralls.io/github/nestjs/nest?branch=master" target="_blank"><img src="https://coveralls.io/repos/github/nestjs/nest/badge.svg?branch=master#9" alt="Coverage" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
-
-## Description
-
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
-
-## Installation
-
-```bash
-$ npm install
-```
-
-## Running the app
+1. Clone the repository:
 
 ```bash
-# development
-$ npm run start
-
-# watch mode
-$ npm run start:dev
-
-# production mode
-$ npm run start:prod
+git clone https://github.com/Anglebert-Dev/Online_Appointment_System_Backend-eDoc-.git
 ```
 
-## Test
+2. Navigate to the project directory:
 
 ```bash
-# unit tests
-$ npm run test
-
-# e2e tests
-$ npm run test:e2e
-
-# test coverage
-$ npm run test:cov
+cd edoc-backend
 ```
 
-## Support
+3. Install dependencies:
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
+```bash
+npm install
+```
 
-## Stay in touch
+4. Configure environment variables:
 
-- Author - [Kamil Myśliwiec](https://kamilmysliwiec.com)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
+   - Create a `.env` file in the root directory and define environment variables such as database connection URI, JWT secret, etc.
 
-## License
+5. Run the server:
 
-Nest is [MIT licensed](LICENSE).
+```bash
+npm run start:dev
+```
+
+6. The server will start running on the specified port, and you can now integrate the backend with the frontend phase.
